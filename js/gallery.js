@@ -63,6 +63,12 @@ const images = [
       description: 'Lighthouse Coast Sea',
     },
   ];
+
+  const instance = basicLightbox.create(`
+    <img src="assets/images/image.png" width="800" height="600">
+`)
+
+instance.show()
   
   const gallery = document.querySelector(".gallery");
   const modal = document.querySelector(".modal");
