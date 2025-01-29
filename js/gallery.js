@@ -89,14 +89,12 @@ const images = [
 
   gallery.innerHTML = galleryMarkup;
 
-// Слухачі подій
 gallery.addEventListener("click", onGalleryClick);
 modalCloseBtn.addEventListener("click", closeModal);
 modal.addEventListener("click", (e) => {
   if (e.target === modal) closeModal();
 });
 
-// Функції
 function onGalleryClick(e) {
   e.preventDefault();
 
