@@ -65,60 +65,44 @@ const images = [
   ];
 
   
-  const gallery = document.querySelector(".gallery");
-  const modal = document.querySelector(".modal");
-  const modalImage = modal.querySelector(".modal-image");
-  const modalCloseBtn = modal.querySelector(".modal-close");
-  
-  const galleryMarkup = images
-  .map(
-    ({ preview, original, description }) => `
-      <li class="gallery-item">
-        <a class="gallery-link" href="${original}">
-          <img
-            class="gallery-image"
-            src="${preview}"
-            data-source="${original}"
-            alt="${description}"
-          />
-        </a>
-      </li>
-    `
-  )
-  .join("");
+const gallery = document.querySelector(".gallery");
+
+const galleryMarkup = images
+    .map(
+      ({ preview, original, description }) => `
+        <li class="gallery-item">
+          <a class="gallery-link" href="${original}">
+            <img
+              class="gallery-image"
+              src="${preview}"
+              data-source="${original}"
+              alt="${description}"
+            />
+          </a>
+        </li>
+      `
+    )
+    .join("");
 
   gallery.innerHTML = galleryMarkup;
 
-gallery.addEventListener("click", onGalleryClick);
-modalCloseBtn.addEventListener("click", closeModal);
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) closeModal();
-});
+  gallery.addEventListener("click", onGalleryClick);
 
-function onGalleryClick(e) {
-  e.preventDefault();
+  function onGalleryClick(e) {
+    e.preventDefault();
 
-  console.log("Gallery item clicked");
+    console.log("Gallery item clicked");
 
-  const isImage = e.target.classList.contains('gallery-image');
-  if (!isImage) return;
+    const isImage = e.target.classList.contains("gallery-image");
+    if (!isImage) return;
 
-  const source = e.target.dataset.source;
-  const description = e.target.alt;
+    const source = e.target.dataset.source;
+    const description = e.target.alt;
 
-  openModal(source, description);
-}
+  
+    const instanceModal = basicLightbox.create(`
+        <img src="${source}" alt="${description}" width="800" height="600">
+    `);
 
-function openModal(src, alt) {
-  console.log("Modal opening");
-  modalImage.src = src;
-  modalImage.alt = alt;
-  modal.classList.remove("hidden");
-}
-
-function closeModal() {
-  modal.classList.add("hidden");
-  modalImage.src = "";
-  modalImage.alt = "";
-}
-
+    instanceModal.show();
+  }
